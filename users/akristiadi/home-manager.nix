@@ -71,20 +71,18 @@ in {
   } else {});
 
   home.file = {
+    ".zshrc".source = ./zshrc.linux;
     ".gdbinit".source = ./gdbinit;
     ".inputrc".source = ./inputrc;
   } // (if isDarwin then {
-    "Library/Application Support/jj/config.toml".source = ./jujutsu.toml;
   } else {});
 
   xdg.configFile = {
-    "i3/config".text = builtins.readFile ./i3;
   } // (if isDarwin then {
     # Rectangle.app. This has to be imported manually using the app.
     "rectangle/RectangleConfig.json".text = builtins.readFile ./RectangleConfig.json;
   } else {}) // (if isLinux then {
     "ghostty/config".text = builtins.readFile ./ghostty.linux;
-    "jj/config.toml".source = ./jujutsu.toml;
   } else {});
 
   #---------------------------------------------------------------------
@@ -99,17 +97,7 @@ in {
     historyControl = [ "ignoredups" "ignorespace" ];
     initExtra = builtins.readFile ./bashrc;
 
-    shellAliases = {
-      ga = "git add";
-      gc = "git commit";
-      gco = "git checkout";
-      gcp = "git cherry-pick";
-      gdiff = "git diff";
-      gl = "git prettylog";
-      gp = "git push";
-      gs = "git status";
-      gt = "git tag";
-    };
+    shellAliases = { };
   };
 
   programs.direnv= {
@@ -122,47 +110,6 @@ in {
         exact = ["$HOME/.envrc"];
       };
     };
-  };
-
-  programs.fish = {
-    enable = true;
-    interactiveShellInit = lib.strings.concatStrings (lib.strings.intersperse "\n" ([
-      "source ${sources.theme-bobthefish}/functions/fish_prompt.fish"
-      "source ${sources.theme-bobthefish}/functions/fish_right_prompt.fish"
-      "source ${sources.theme-bobthefish}/functions/fish_title.fish"
-      (builtins.readFile ./config.fish)
-      "set -g SHELL ${pkgs.fish}/bin/fish"
-    ]));
-
-    shellAliases = {
-      ga = "git add";
-      gc = "git commit";
-      gco = "git checkout";
-      gcp = "git cherry-pick";
-      gdiff = "git diff";
-      gl = "git prettylog";
-      gp = "git push";
-      gs = "git status";
-      gt = "git tag";
-
-      jf = "jj git fetch";
-      jn = "jj new";
-      js = "jj st";
-    } // (if isLinux then {
-      # Two decades of using a Mac has made this such a strong memory
-      # that I'm just going to keep it consistent.
-      pbcopy = "xclip";
-      pbpaste = "xclip -o";
-    } else {});
-
-    plugins = map (n: {
-      name = n;
-      src  = sources.${n};
-    }) [
-      "fish-fzf"
-      "fish-foreign-env"
-      "theme-bobthefish"
-    ];
   };
 
   programs.git = {
@@ -189,13 +136,6 @@ in {
     };
   };
 
-  programs.jujutsu = {
-    enable = true;
-
-    # I don't use "settings" because the path is wrong on macOS at
-    # the time of writing this.
-  };
-
   programs.tmux = {
     enable = true;
     terminal = "xterm-256color";
@@ -215,45 +155,6 @@ in {
       run-shell ${sources.tmux-pain-control}/pain_control.tmux
       run-shell ${sources.tmux-dracula}/dracula.tmux
     '';
-  };
-
-  programs.alacritty = {
-    enable = !isWSL;
-
-    settings = {
-      env.TERM = "xterm-256color";
-
-      key_bindings = [
-        { key = "K"; mods = "Command"; chars = "ClearHistory"; }
-        { key = "V"; mods = "Command"; action = "Paste"; }
-        { key = "C"; mods = "Command"; action = "Copy"; }
-        { key = "Key0"; mods = "Command"; action = "ResetFontSize"; }
-        { key = "Equals"; mods = "Command"; action = "IncreaseFontSize"; }
-        { key = "Subtract"; mods = "Command"; action = "DecreaseFontSize"; }
-      ];
-    };
-  };
-
-  programs.kitty = {
-    enable = !isWSL;
-    extraConfig = builtins.readFile ./kitty;
-  };
-
-  programs.i3status = {
-    enable = isLinux && !isWSL;
-
-    general = {
-      colors = true;
-      color_good = "#8C9440";
-      color_bad = "#A54242";
-      color_degraded = "#DE935F";
-    };
-
-    modules = {
-      ipv6.enable = false;
-      "wireless _first_".enable = false;
-      "battery all".enable = false;
-    };
   };
 
   programs.neovim = {
