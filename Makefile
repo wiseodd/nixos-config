@@ -1,13 +1,13 @@
 # Connectivity info for Linux VM
 NIXADDR ?= unset
 NIXPORT ?= 22
-NIXUSER ?= mitchellh
+NIXUSER ?= akristiadi
 
 # Get the path to this Makefile and directory
 MAKEFILE_DIR := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 
 # The name of the nixosConfiguration in the flake
-NIXNAME ?= vm-intel
+NIXNAME ?= vm-aarch64
 
 # SSH options that are used. These aren't meant to be overridden but are
 # reused a lot so we just store them up here.
@@ -32,21 +32,10 @@ else
 	sudo NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nixos-rebuild test --flake ".#$(NIXNAME)"
 endif
 
-# This builds the given NixOS configuration and pushes the results to the
-# cache. This does not alter the current running system. This requires
-# cachix authentication to be configured out of band.
-cache:
-	nix build '.#nixosConfigurations.$(NIXNAME).config.system.build.toplevel' --json \
-		| jq -r '.[].outputs | to_entries[].value' \
-		| cachix push mitchellh-nixos-config
-
 # bootstrap a brand new VM. The VM should have NixOS ISO on the CD drive
 # and just set the password of the root user to "root". This will install
 # NixOS. After installing NixOS, you must reboot and set the root password
 # for the next step.
-#
-# NOTE(mitchellh): I'm sure there is a way to do this and bootstrap all
-# in one step but when I tried to merge them I got errors. One day.
 vm/bootstrap0:
 	ssh $(SSH_OPTIONS) -p$(NIXPORT) root@$(NIXADDR) " \
 		parted /dev/sda -- mklabel gpt; \
@@ -66,8 +55,6 @@ vm/bootstrap0:
 		sed --in-place '/system\.stateVersion = .*/a \
 			nix.package = pkgs.nixVersions.latest;\n \
 			nix.extraOptions = \"experimental-features = nix-command flakes\";\n \
-			nix.settings.substituters = [\"https://mitchellh-nixos-config.cachix.org\"];\n \
-			nix.settings.trusted-public-keys = [\"mitchellh-nixos-config.cachix.org-1:bjEbXJyLrL1HZZHBbO4QALnI5faYZppzkU4D2s0G8RQ=\"];\n \
   			services.openssh.enable = true;\n \
 			services.openssh.settings.PasswordAuthentication = true;\n \
 			services.openssh.settings.PermitRootLogin = \"yes\";\n \
@@ -88,12 +75,6 @@ vm/bootstrap:
 
 # copy our secrets into the VM
 vm/secrets:
-	# GPG keyring
-	rsync -av -e 'ssh $(SSH_OPTIONS)' \
-		--exclude='.#*' \
-		--exclude='S.*' \
-		--exclude='*.conf' \
-		$(HOME)/.gnupg/ $(NIXUSER)@$(NIXADDR):~/.gnupg
 	# SSH keys
 	rsync -av -e 'ssh $(SSH_OPTIONS)' \
 		--exclude='environment' \

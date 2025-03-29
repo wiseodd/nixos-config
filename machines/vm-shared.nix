@@ -1,12 +1,6 @@
 { config, pkgs, lib, currentSystem, currentSystemName,... }:
 
 {
-  imports = [
-    ../modules/specialization/plasma.nix
-    ../modules/specialization/i3.nix
-    ../modules/specialization/gnome-ibus.nix
-  ];
-
   # Be careful updating this.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
@@ -17,20 +11,7 @@
       keep-outputs = true
       keep-derivations = true
     '';
-
-    # public binary cache that I use for all my derivations. You can keep
-    # this, use your own, or toss it. Its typically safe to use a binary cache
-    # since the data inside is checksummed.
-    settings = {
-      substituters = ["https://mitchellh-nixos-config.cachix.org"];
-      trusted-public-keys = ["mitchellh-nixos-config.cachix.org-1:bjEbXJyLrL1HZZHBbO4QALnI5faYZppzkU4D2s0G8RQ="];
-    };
   };
-
-  nixpkgs.config.permittedInsecurePackages = [
-    # Needed for k2pdfopt 2.53.
-    "mupdf-1.17.0"
-  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -44,7 +25,7 @@
   networking.hostName = "dev";
 
   # Set your time zone.
-  time.timeZone = "America/Los_Angeles";
+  time.timeZone = "America/Toronto";
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -61,24 +42,7 @@
   };
 
   # Select internationalisation properties.
-  i18n = {
-    defaultLocale = "en_US.UTF-8";
-    inputMethod = {
-      enable = true;
-      type = "fcitx5";
-      fcitx5.addons = with pkgs; [
-        fcitx5-chinese-addons
-        fcitx5-gtk
-        fcitx5-hangul
-        fcitx5-mozc
-      ];
-    };
-  };
-
-  # Enable tailscale. We manually authenticate when we want with
-  # "sudo tailscale up". If you don't use tailscale, you should comment
-  # out or delete all of this.
-  services.tailscale.enable = true;
+  i18n.defaultLocale = "en_US.UTF-8";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.mutableUsers = false;
@@ -88,16 +52,14 @@
   fonts = {
     fontDir.enable = true;
 
-    packages = [
-      pkgs.fira-code
-      pkgs.jetbrains-mono
+    packages = with pkgs; [
+      (pkgs.nerdfonts.override { fonts = [ "Iosevka" ]; })
     ];
   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    cachix
     gnumake
     killall
     niv
@@ -115,13 +77,39 @@
     gtkmm3
   ];
 
-  # Our default non-specialised desktop environment.
-  services.xserver = lib.mkIf (config.specialisation != {}) {
+   xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    config.common.default = "*";
+  };
+
+  services.xserver = {
     enable = true;
     xkb.layout = "us";
-    desktopManager.gnome.enable = true;
-    displayManager.gdm.enable = true;
-  };
+    dpi = 220;
+
+    desktopManager = {
+      xterm.enable = false;
+      wallpaper.mode = "fill";
+    };
+
+    displayManager = {
+      defaultSession = "none+i3";
+      lightdm.enable = true;
+
+      # AARCH64: For now, on Apple Silicon, we must manually set the
+      # display resolution. This is a known issue with VMware Fusion.
+      sessionCommands = ''
+        ${pkgs.xorg.xset}/bin/xset r rate 200 40
+      '' + (if currentSystem == "aarch64-linux" then ''
+        ${pkgs.xorg.xrandr}/bin/xrandr -s '2560x1600'
+      '' else "");
+    };
+
+    windowManager = {
+      i3.enable = true;
+    };
+  }; 
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
