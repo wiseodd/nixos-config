@@ -143,10 +143,16 @@
     flatpak
   ];
 
-  fonts.packages = with pkgs; [
-    nerd-fonts.iosevka
-    noto-fonts-color-emoji
-  ];
+  fonts = {
+    fontDir.enable = true;
+    packages = with pkgs; [
+      nerd-fonts.iosevka
+      nerd-fonts.jetbrains-mono
+      noto-fonts-color-emoji
+      inter
+      corefonts
+    ];
+  };
 
   # Window manager
   programs.sway = {
