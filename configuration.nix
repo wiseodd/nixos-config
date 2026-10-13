@@ -72,6 +72,7 @@
     starship
     zathura
     inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
+    inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.wlr-utils
 
     # Browsers
     firefox
@@ -254,6 +255,18 @@
       xdg-desktop-portal-sway
       xdg-desktop-portal-gtk
     ];
+
+    config.sway = {
+      default = [ "gtk" ];
+      "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
+      "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
+    };
+
+    wlr.settings.screencast = {
+      chooser_type = "simple";
+      chooser_cmd =
+        "${inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.wlr-utils}/bin/wlr-chooser --both --layout grid --grid 4x3";
+    };
   };
 
   # DO NOT CHANGE THIS

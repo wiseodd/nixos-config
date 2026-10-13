@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOs/nixpkgs/nixos-26.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     noctalia = {
       url = "github:noctalia-dev/noctalia/cachix";
 
