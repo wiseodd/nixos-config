@@ -15,6 +15,7 @@ sudo systemctl restart cups
 # Fonts
 gsettings set org.gnome.desktop.interface font-name 'Inter 11'
 gsettings set org.gnome.desktop.interface text-scaling-factor 0.95
+gsettings set org.gnome.desktop.interface icon-theme 'Papirus'
 
 # VM
 sudo install -d /etc/libvirt

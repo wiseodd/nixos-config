@@ -74,6 +74,13 @@
     inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
     inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.wlr-utils
 
+    # GTK stuffs
+    glib
+    dconf
+    adwaita-icon-theme
+    hicolor-icon-theme
+    papirus-icon-theme
+
     # Browsers
     firefox
     firefoxpwa
