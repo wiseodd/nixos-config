@@ -42,7 +42,11 @@
   users.users."akristiadi" = {
     isNormalUser = true;
     description = "Agustinus Kristiadi";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ 
+      "networkmanager"
+      "wheel" 
+      "libvirtd"
+    ];
     packages = with pkgs; [];
   };
 
@@ -198,8 +202,6 @@
   virtualisation.libvirtd.enable = true;
   virtualisation.libvirtd.qemu.package = pkgs.qemu_full;
   programs.virt-manager.enable = true;
-
-  users.users.akristiadi.extraGroups = [ "libvirtd" ];
 
   # v4l2loopback: use the module built for this kernel
   boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
