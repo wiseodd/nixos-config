@@ -236,8 +236,25 @@
 
   # v4l2loopback: use the module built for this kernel
   boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
-
   boot.kernelModules = [ "v4l2loopback" ];
+
+  # Configure screensharing
+  security.rtkit.enable = true;
+
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-sway
+      xdg-desktop-portal-gtk
+    ];
+  };
 
   # DO NOT CHANGE THIS
   system.stateVersion = "26.05";
