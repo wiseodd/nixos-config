@@ -56,6 +56,7 @@
     neovim
     wget
     git
+    stow
     nautilus
     wl-clipboard
     grim
