@@ -122,7 +122,6 @@
 
     # Applications
     proton-vpn            # Current official Proton VPN client
-    megasync
 
     # Webcam
     v4l-utils
@@ -142,6 +141,11 @@
     # Utils
     ddcutil
     flatpak
+  ];
+
+  fonts.packages = with pkgs; [
+    nerd-fonts.iosevka
+    noto-fonts-color-emoji
   ];
 
   # Window manager
@@ -172,10 +176,6 @@
     polkitPolicyOwners = [ "akristiadi" ];
   };
 
-  fonts.packages = [
-    pkgs.nerd-fonts.iosevka
-  ];
-
   services.flatpak.enable = true;
   services.printing.enable = true;
   services.usbmuxd.enable = true;
@@ -196,7 +196,7 @@
   # Power management
   services.power-profiles-daemon.enable = true;
   services.upower.enable = true;
-  harware.i2c.enable = true;  # For ddcutil
+  hardware.i2c.enable = true;  # For ddcutil
 
   # KVM/QEMU
   virtualisation.libvirtd.enable = true;
