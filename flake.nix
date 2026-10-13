@@ -7,6 +7,8 @@
       url = "github:noctalia-dev/noctalia/cachix";
 
     };
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.8.0";
+    nix-flatpak.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   nixConfig = {
@@ -19,6 +21,7 @@
       specialArgs = { inherit inputs; };
 
       modules = [
+        inputs.nix-flatpak.nixosModules.nix-flatpak
         ./configuration.nix
       ];
     };
