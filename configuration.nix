@@ -186,14 +186,14 @@
     enable = true;
 
     packages = [
-      us.zoom.Zoom
-      com.obsproject.Studio
-      com.obsproject.Studio.Plugin.DroidCam
-      com.github.IsmaelMartinez.teams_for_linux
-      com.slack.Slack
-      com.budgetwithbuckets.Buckets
-      org.zotero.Zotero
-      com.vscodium.codium
+      "us.zoom.Zoom"
+      "com.obsproject.Studio"
+      "com.obsproject.Studio.Plugin.DroidCam"
+      "com.github.IsmaelMartinez.teams_for_linux"
+      "com.slack.Slack"
+      "com.budgetwithbuckets.Buckets"
+      "org.zotero.Zotero"
+      "com.vscodium.codium"
     ];
 
     overrides.settings = {
@@ -203,7 +203,7 @@
 
       "com.obsproject.Studio".Context.filesystems = [
         "/run/usbmuxd"
-      ]
+      ];
     };
   };
 
