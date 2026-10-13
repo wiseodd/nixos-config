@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, inputs, pkgs, ... }:
 
 {
   imports =
@@ -67,6 +67,7 @@
     starship
     firefox
     zathura
+    inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
   # Window manager
@@ -76,7 +77,7 @@
   };
 
   # Login manager
-  programs.regreet.enable = true;
+  services.displayManager.ly.enable = true;
 
   # ## Fallback to SDDM
   # services.displayManager.sddm = {
