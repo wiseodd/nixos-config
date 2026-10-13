@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOs/nixpkgs/nixos-26.05";
     noctalia = {
-      url = "github:noctalia-dev/noctalia";
+      url = "github:noctalia-dev/noctalia/cachix";
     };
   };
 
@@ -18,7 +18,7 @@
         ({ pkgs, ... }: {
           nix.settings = {
             substituters = [ "https://noctalia.cachix.org" ];
-            trusted-public-keys = [ "noctalia.cachix.org-1" ]
+            extra-trusted-public-keys = [ "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4=" ];
           };
         })
       ];

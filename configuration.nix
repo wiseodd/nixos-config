@@ -24,6 +24,8 @@
     22  # SSH
   ];
 
+  hardware.bluetooth.enable = true;
+
   # Set your time zone.
   time.timeZone = "America/Toronto";
 
@@ -117,6 +119,10 @@
 
   services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = true;
+
+  # Power management
+  services.power-profiles-daemon.enable = true;
+  services.upower.enable = true;
 
   # DO NOT CHANGE THIS
   system.stateVersion = "26.05";
