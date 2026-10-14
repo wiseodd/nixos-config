@@ -3,7 +3,7 @@
 Step-by-step:
 
 1. Install NixOS
-2. Add git and stow to `/etc/nixos/configuration.nix` (use sudo):
+2. Add git and stow to `/etc/nixos/configuration.nix` (use sudoedit):
    ```nix
    # ...
 
@@ -26,14 +26,14 @@ Step-by-step:
 
    # Copy machine-specific config
    cd nixos-config
-   cp /etc/nixos/hardware-configuration .
+   cp /etc/nixos/hardware-configuration nixos
 
    # Back up the existing config
    sudo mv /etc/nixos /etc/nixos-BAK
    sudo mkdir /etc/nixos
 
    # Link the repo files
-   sudo stow -t /etc/nixos .
+   sudo stow -t /etc/nixos nixos
 
    # Install git and stow
    sudo nixos-rebuild switch

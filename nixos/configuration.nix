@@ -1,10 +1,15 @@
-{ config, inputs, pkgs, ... }:
+{
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -40,12 +45,12 @@
   users.users."akristiadi" = {
     isNormalUser = true;
     description = "Agustinus Kristiadi";
-    extraGroups = [ 
+    extraGroups = [
       "networkmanager"
-      "wheel" 
+      "wheel"
       "libvirtd"
     ];
-    packages = with pkgs; [];
+    packages = with pkgs; [ ];
   };
 
   # Allow unfree packages
@@ -55,7 +60,7 @@
     "nix-command"
     "flakes"
   ];
-  
+
   environment.systemPackages = with pkgs; [
     neovim
     wget
@@ -93,10 +98,10 @@
     lazygit
     fzf
     fd
-    skim  # sk in Arch
+    skim # sk in Arch
 
     # Development and language servers
-    tree-sitter 
+    tree-sitter
     ty
     lua-language-server
     stylua
@@ -114,6 +119,7 @@
     taplo
     harper
     shfmt
+    nixfmt
 
     # Languages and runtimes
     lua
@@ -131,7 +137,8 @@
     pdftk
 
     # Applications
-    proton-vpn            # Current official Proton VPN client
+    proton-vpn # Current official Proton VPN client
+    megasync
 
     # Webcam
     v4l-utils
@@ -139,7 +146,7 @@
     libimobiledevice
 
     # Printing
-    samba                 # Provides smbclient
+    samba # Provides smbclient
     cups
 
     # Virtualization
@@ -206,6 +213,7 @@
       "com.budgetwithbuckets.Buckets"
       "org.zotero.Zotero"
       "com.vscodium.codium"
+      "org.onlyoffice.desktopeditors"
     ];
 
     overrides.settings = {
@@ -225,7 +233,7 @@
   # Printing
   services.printing.enable = true;
   programs.system-config-printer.enable = true;
-  
+
   services.gnome.gnome-keyring.enable = true;
   services.gvfs.enable = true;
   services.udisks2.enable = true;
@@ -242,7 +250,7 @@
   # Power management
   services.power-profiles-daemon.enable = true;
   services.upower.enable = true;
-  hardware.i2c.enable = true;  # For ddcutil
+  hardware.i2c.enable = true; # For ddcutil
 
   # KVM/QEMU
   virtualisation.libvirtd.enable = true;
@@ -252,7 +260,7 @@
   # v4l2loopback: use the module built for this kernel
   boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
   boot.kernelModules = [ "v4l2loopback" ];
-  services.usbmuxd.enable = true;  # For connecting iPhone with USB
+  services.usbmuxd.enable = true; # For connecting iPhone with USB
 
   # Configure screensharing
   security.rtkit.enable = true;
@@ -280,8 +288,9 @@
 
     wlr.settings.screencast = {
       chooser_type = "simple";
-      chooser_cmd =
-        "${inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.wlr-utils}/bin/wlr-chooser --both --layout grid --grid 4x3";
+      chooser_cmd = "${
+        inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.wlr-utils
+      }/bin/wlr-chooser --both --layout grid --grid 4x3";
     };
   };
 
