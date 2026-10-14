@@ -151,6 +151,8 @@
     # Utils
     ddcutil
     flatpak
+    udiskie
+    networkmanagerapplet
   ];
 
   fonts = {
@@ -220,8 +222,9 @@
   # GTK settings
   programs.dconf.enable = true;
 
+  # Printing
   services.printing.enable = true;
-  services.usbmuxd.enable = true;
+  programs.system-config-printer.enable = true;
   
   services.gnome.gnome-keyring.enable = true;
   services.gvfs.enable = true;
@@ -249,6 +252,7 @@
   # v4l2loopback: use the module built for this kernel
   boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
   boot.kernelModules = [ "v4l2loopback" ];
+  services.usbmuxd.enable = true;  # For connecting iPhone with USB
 
   # Configure screensharing
   security.rtkit.enable = true;
