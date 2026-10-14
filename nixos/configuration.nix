@@ -41,6 +41,11 @@
     variant = "";
   };
 
+  console = {
+    useXkbConfig = true;
+    earlySetup = true;
+  };
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users."akristiadi" = {
     isNormalUser = true;
