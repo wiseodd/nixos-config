@@ -27,6 +27,7 @@
         modules = [
           inputs.nix-flatpak.nixosModules.nix-flatpak
           ./configuration.nix
+          ./hosts/home.nix
         ];
       };
     };
