@@ -143,6 +143,7 @@
     # Applications
     proton-vpn # Current official Proton VPN client
     megasync
+    inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.euro-office-desktopeditors
 
     # Webcam
     v4l-utils
@@ -214,10 +215,8 @@
       "com.obsproject.Studio.Plugin.DroidCam"
       "com.github.IsmaelMartinez.teams_for_linux"
       "com.slack.Slack"
-      "com.budgetwithbuckets.Buckets"
       "org.zotero.Zotero"
       "com.vscodium.codium"
-      "org.onlyoffice.desktopeditors"
     ];
 
     overrides.settings = {
@@ -232,24 +231,18 @@
       ];
 
       "com.vscodium.codium".Environment = {
+        XDG_SESSION_TYPE = "wayland";
         ELECTRON_OZONE_PLATFORM_HINT = "wayland";
       };
 
       "com.github.IsmaelMartinez.teams_for_linux".Environment = {
+        XDG_SESSION_TYPE = "wayland";
         ELECTRON_OZONE_PLATFORM_HINT = "wayland";
       };
 
       "com.slack.Slack".Environment = {
+        XDG_SESSION_TYPE = "wayland";
         ELECTRON_OZONE_PLATFORM_HINT = "wayland";
-      };
-
-      "com.budgetwithbuckets.Buckets" = {
-        Environment.ELECTRON_OZONE_PLATFORM_HINT = "wayland";
-        Context.sockets = [
-          "wayland"
-          "!x11"
-          "!fallback-x11"
-        ];
       };
     };
   };
