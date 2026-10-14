@@ -221,6 +221,8 @@
     ];
 
     overrides.settings = {
+      "org.zotero.Zotero"."Session Bus Policy"."org.freedesktop.secrets" = "talk";
+
       "us.zoom.Zoom".Context.filesystems = [
         "/home/akristiadi/.config/zoomus.conf"
       ];
@@ -229,7 +231,26 @@
         "/run/usbmuxd"
       ];
 
-      "org.zotero.Zotero"."Session Bus Policy"."org.freedesktop.secrets" = "talk";
+      "com.vscodium.codium".Environment = {
+        ELECTRON_OZONE_PLATFORM_HINT = "wayland";
+      };
+
+      "com.github.IsmaelMartinez.teams_for_linux".Environment = {
+        ELECTRON_OZONE_PLATFORM_HINT = "wayland";
+      };
+
+      "com.slack.Slack".Environment = {
+        ELECTRON_OZONE_PLATFORM_HINT = "wayland";
+      };
+
+      "com.budgetwithbuckets.Buckets" = {
+        Environment.ELECTRON_OZONE_PLATFORM_HINT = "wayland";
+        Context.sockets = [
+          "wayland"
+          "!x11"
+          "!fallback-x11"
+        ];
+      };
     };
   };
 
