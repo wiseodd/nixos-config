@@ -16,6 +16,10 @@
   networking.hostName = "nixos";
   networking.wireless.enable = true;
   networking.networkmanager.enable = true;
+  networking.nameservers = [
+    "1.1.1.1"
+    "1.0.0.1"
+  ];
 
   hardware.graphics.enable = true;
   hardware.bluetooth.enable = true;
@@ -77,6 +81,7 @@
     adwaita-icon-theme
     hicolor-icon-theme
     papirus-icon-theme
+    adw-gtk3
 
     # Browsers
     firefox
