@@ -277,9 +277,32 @@
   virtualisation.libvirtd.qemu.package = pkgs.qemu_full;
   programs.virt-manager.enable = true;
 
-  # v4l2loopback: use the module built for this kernel
-  boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
-  boot.kernelModules = [ "v4l2loopback" ];
+  boot = {
+    # v4l2loopback: use the module built for this kernel
+    extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
+    kernelModules = [ "v4l2loopback" ];
+
+    # Plymouth graphical bootscreen
+    initrd.systemd.enable = true;
+    initrd.verbose = false;
+
+    plymouth = {
+      enable = true;
+      theme = "text";
+    };
+
+    consoleLogLevel = 3;
+
+    kernelParams = [
+      "quiet"
+      "splash"
+      "udev.log_priority=3"
+      "rd.systemd.show_status=auto"
+    ];
+
+    loader.timeout = 0;
+  };
+
   services.usbmuxd.enable = true; # For connecting iPhone with USB
 
   # Configure screensharing
