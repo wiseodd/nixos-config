@@ -228,6 +228,8 @@
       "com.obsproject.Studio".Context.filesystems = [
         "/run/usbmuxd"
       ];
+
+      "org.zotero.Zotero"."Session Bus Policy"."org.freedesktop.secrets" = "talk";
     };
   };
 
