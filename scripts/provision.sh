@@ -17,29 +17,6 @@ gsettings set org.gnome.desktop.interface font-name 'Inter 11'
 gsettings set org.gnome.desktop.interface text-scaling-factor 0.95
 gsettings set org.gnome.desktop.interface icon-theme 'Papirus'
 
-# Adwaita cursors
-adwaita_cursors=/run/current-system/sw/share/icons/Adwaita/cursors
-cursor_theme="${XDG_DATA_HOME:-$HOME/.local/share}/icons/Adwaita-Arrow"
-cursor_dir="$cursor_theme/cursors"
-
-if [[ ! -e "$adwaita_cursors/left_ptr" ]]; then
-  echo "Error: Adwaita cursor theme not found" >&2
-  exit 1
-fi
-
-mkdir -p "$cursor_dir"
-
-cat >"$cursor_theme/index.theme" <<'EOF'
-[Icon Theme]
-Name=Adwaita-Arrow
-Comment=Adwaita cursors with arrow for clickable areas
-Inherits=Adwaita
-EOF
-
-for cursor in pointer hand hand2 pointing_hand link; do
-  ln -sfn "$adwaita_cursors/left_ptr" "$cursor_dir/$cursor"
-done
-
 # GTK applications
 gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita-Arrow'
 gsettings set org.gnome.desktop.interface cursor-size 24
