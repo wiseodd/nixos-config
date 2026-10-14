@@ -20,7 +20,7 @@ grep -qxF -- "$line" "$HOME/.bashrc" ||
   printf '\n%s\n' "$line" >>"$HOME/.bashrc"
 
 # Fonts
-gsettings set org.gnome.desktop.interface font-name 'Inter 11'
+gsettings set org.gnome.desktop.interface font-name 'Inter Display 11'
 gsettings set org.gnome.desktop.interface text-scaling-factor 0.95
 gsettings set org.gnome.desktop.interface icon-theme 'Papirus'
 
