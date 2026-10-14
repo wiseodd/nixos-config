@@ -16,14 +16,8 @@
   networking.hostName = "nixos";
   networking.wireless.enable = true;
   networking.networkmanager.enable = true;
-  networking.nameservers = [
-    "1.1.1.1"
-    "1.0.0.1"
-  ];
-  networking.firewall.allowedTCPPorts = [
-    22  # SSH
-  ];
 
+  hardware.graphics.enable = true;
   hardware.bluetooth.enable = true;
 
   # Set your time zone.
@@ -64,6 +58,9 @@
     git
     stow
     nautilus
+    sushi
+    loupe
+    evince
     wl-clipboard
     grim
     slurp
@@ -215,6 +212,8 @@
     };
   };
 
+  # GTK settings
+  programs.dconf.enable = true;
 
   services.printing.enable = true;
   services.usbmuxd.enable = true;
@@ -258,9 +257,10 @@
 
   xdg.portal = {
     enable = true;
+    wlr.enable = true;
+
     extraPortals = with pkgs; [
       xdg-desktop-portal-gtk
-      xdg-desktop-portal-wlr
     ];
 
     config.sway = {
