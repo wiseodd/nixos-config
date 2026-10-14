@@ -7,10 +7,17 @@
 
 set -euo pipefail
 
-# Configure smbclient for printing
-sudo mkdir -p /etc/samba
-sudo touch /etc/samba/smb.conf
-sudo systemctl restart cups
+# Ensure Bash login shells load .bashrc
+line='[[ -f ~/.bashrc ]] && source ~/.bashrc'
+touch "$HOME/.bash_profile"
+grep -qxF "$line" "$HOME/.bash_profile" ||
+  printf '\n%s\n' "$line" >>"$HOME/.bash_profile"
+
+# Source custom Bash config
+line='[[ -f "$HOME/config/custom.bash" ]] && source "$HOME/config/custom.bash"'
+touch "$HOME/.bashrc"
+grep -qxF -- "$line" "$HOME/.bashrc" ||
+  printf '\n%s\n' "$line" >>"$HOME/.bashrc"
 
 # Fonts
 gsettings set org.gnome.desktop.interface font-name 'Inter 11'
@@ -20,6 +27,11 @@ gsettings set org.gnome.desktop.interface icon-theme 'Papirus'
 # GTK applications
 gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita-Arrow'
 gsettings set org.gnome.desktop.interface cursor-size 24
+
+# Configure smbclient for printing
+sudo mkdir -p /etc/samba
+sudo touch /etc/samba/smb.conf
+sudo systemctl restart cups
 
 # VM
 sudo install -d /etc/libvirt
