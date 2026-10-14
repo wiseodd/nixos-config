@@ -292,8 +292,14 @@ in
     swaylock.enableGnomeKeyring = true;
   };
 
-  services.openssh.enable = true;
-  services.openssh.settings.PasswordAuthentication = true;
+  # OpenSSH server, useful for rsync back and forth with a cluster
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+    };
+  };
 
   # Power management
   services.power-profiles-daemon.enable = true;
