@@ -24,24 +24,29 @@ Step-by-step:
    ```sh
    git clone git@github.com:wiseodd/nixos-config.git ~/nixos-config
    ```
-5. Copy machine-specific config
+5. Copy machine-specific config: (change `${YOUR_HOST_NAME}`)
    ```sh
    cd nixos-config
-   cp /etc/nixos/hardware-configuration.nix nixos
+   cp /etc/nixos/hardware-configuration.nix nixos/hosts/${YOUR_HOST_NAME}-hardware-configuration.nix
    ```
-6. Check `hardware-configuration.nix`, copy the UUID for swap partition, and use put it here `nixos/hosts/home.nix`, replacing the existing one. A new host can also be created.
-   - E.g., if in `hardware-configuration.nix` it says: `/dev/mapper/luks-bcf1c770-4fc1-4c9b-8fde-4cd7b9c6ccba`, then copy the string after `luks-` and put it in `luks-...` and `/dev/disk/by-uuid/...` in `hosts/home.nix`.
-7. Back up the existing config
+6. Check `/etc/nixos/configuration.nix`, copy the line that looks like this (the UUID will be **different!**):
+   ```nix
+   boot.initrd.luks.devices."luks-bcf1c770-4fc1-4c9b-8fde-4cd7b9c6ccba".device = "/dev/disk/by-uuid/bcf1c770-4fc1-4c9b-8fde-4cd7b9c6ccba";
+   ```
+   into `nixos/hosts/${YOUR_HOSTNAME}.nix`.
+7. Assuming `${YOUR_HOSTNAME}` is either `home` or `office`, then it's good to go. Otherwise, edit `flake.nix` to add a new host.
+8. Back up the existing config
    ```sh
    sudo mv /etc/nixos /etc/nixos-BAK
    sudo mkdir /etc/nixos
    ```
-8 Link the repo files
+9 Link the repo files
    ```sh
    sudo stow -t /etc/nixos nixos
    ```
-9. Install and reboot
+10. Install and reboot.
    ```sh
-   sudo nixos-rebuild switch
+   cd nixos
+   sudo nixos-rebuild switch --flake .#{YOUR_HOST_NAME}
    systemctl reboot
    ```
