@@ -91,6 +91,7 @@ in
     wezterm
     starship
     zathura
+    swaylock-effects
     inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
     inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.wlr-utils
 
