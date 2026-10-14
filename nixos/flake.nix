@@ -21,14 +21,26 @@
   outputs =
     { self, nixpkgs, ... }@inputs:
     {
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
+      nixosConfigurations = {
+        home = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+          modules = [
+            inputs.nix-flatpak.nixosModules.nix-flatpak
+            ./configuration.nix
+            ./hosts/home.nix
+            ./hosts/home-hardware-configuration.nix
+          ];
+        };
 
-        modules = [
-          inputs.nix-flatpak.nixosModules.nix-flatpak
-          ./configuration.nix
-          ./hosts/home.nix
-        ];
+        office = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+          modules = [
+            inputs.nix-flatpak.nixosModules.nix-flatpak
+            ./configuration.nix
+            ./hosts/office.nix
+            ./hosts/office-hardware-configuration.nix
+          ];
+        };
       };
     };
 }
