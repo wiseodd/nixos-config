@@ -5,6 +5,9 @@
   ...
 }:
 
+let
+  username = "akristiadi";
+in
 {
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -37,12 +40,13 @@
   };
 
   console = {
-    useXkbConfig = true;
+    keyMap = "us";
+    useXkbConfig = false;
     earlySetup = true;
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users."akristiadi" = {
+  # Define a user account
+  users.users.${username} = {
     isNormalUser = true;
     description = "Agustinus Kristiadi";
     extraGroups = [
@@ -51,6 +55,12 @@
       "libvirtd"
     ];
     packages = with pkgs; [ ];
+  };
+
+  # Setup autologin. Initial boot is secured by disk encryption already.
+  services.displayManager.autoLogin = {
+    enable = true;
+    user = username;
   };
 
   # Allow unfree packages
@@ -165,6 +175,7 @@
     flatpak
     udiskie
     networkmanagerapplet
+    seahorse
   ];
 
   fonts = {
@@ -254,7 +265,24 @@
   services.printing.enable = true;
   programs.system-config-printer.enable = true;
 
+  # Keyring and autounlock using LUKS passphrase
+  # NOTE: Change gnome-keyring password using seahorse to match LUKS passphrase
   services.gnome.gnome-keyring.enable = true;
+  security.pam.services.ly-autologin.rules.auth = {
+    systemd-loadkey = {
+      order = 10250;
+      control = "optional";
+      modulePath = "${pkgs.systemd}/lib/security/pam_systemd_loadkey.so";
+    };
+
+    gnome-keyring = {
+      order = 10260;
+      control = "optional";
+      modulePath = "${pkgs.gnome-keyring}/lib/security/pam_gnome_keyring.so";
+    };
+  };
+  systemd.services.display-manager.serviceConfig.KeyringMode = "inherit";
+
   services.gvfs.enable = true;
   services.udisks2.enable = true;
 
@@ -283,23 +311,25 @@
     kernelModules = [ "v4l2loopback" ];
 
     # Plymouth graphical bootscreen
-    initrd.systemd.enable = true;
-    initrd.verbose = false;
-
     plymouth = {
       enable = true;
-      theme = "text";
+      extraConfig = ''
+        [Daemon]
+        DeviceScale=an-integer-scaling-factor
+      '';
     };
 
+    # Silent boot
+    initrd.systemd.enable = true;
+    initrd.verbose = false;
     consoleLogLevel = 3;
-
     kernelParams = [
       "quiet"
-      "splash"
-      "udev.log_priority=3"
+      "udev.log_level=3"
       "rd.systemd.show_status=auto"
     ];
 
+    # Don't show bootloader
     loader.timeout = 0;
   };
 
