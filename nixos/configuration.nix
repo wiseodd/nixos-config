@@ -68,6 +68,7 @@
     stdenv.cc
     gcc
     gnumake
+    unzip
     stow
     nautilus
     sushi
@@ -292,8 +293,8 @@
     wlr.settings.screencast = {
       chooser_type = "simple";
       chooser_cmd = "${
-        inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.wlr-utils
-      }/bin/wlr-chooser --both --layout grid --grid 4x3";
+        inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.wlr-utils
+      }/bin/wlr-chooser --both --grid 4x3";
     };
   };
 
