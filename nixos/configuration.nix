@@ -71,6 +71,10 @@ in
     "flakes"
   ];
 
+  # Enable launching binaries from ~/.local/bin
+  environment.localBinInPath = true;
+  programs.nix-ld.enable = true;
+
   environment.systemPackages = with pkgs; [
     neovim
     wget
@@ -78,6 +82,7 @@ in
     stdenv.cc
     gcc
     gnumake
+    zlib
     unzip
     stow
     nautilus
