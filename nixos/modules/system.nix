@@ -86,26 +86,4 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-
-  xdg.portal = {
-    enable = true;
-    wlr.enable = true;
-
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gtk
-    ];
-
-    config.sway = {
-      default = [ "gtk" ];
-      "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
-      "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
-    };
-
-    wlr.settings.screencast = {
-      chooser_type = "simple";
-      chooser_cmd = "${
-        inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.wlr-utils
-      }/bin/wlr-chooser --both --grid 4x3";
-    };
-  };
 }

@@ -17,6 +17,7 @@
 
   environment.sessionVariables = {
     FREETYPE_PROPERTIES = "cff:no-stem-darkening=0 autofitter:no-stem-darkening=0 type1:no-stem-darkening=0 t1cid:no-stem-darkening=0";
+    NIXOS_OZONE_WL = "1";
   };
 
   fonts.fontconfig = {

@@ -11,8 +11,9 @@
     # Bootloader
     loader = {
       limine.enable = true;
+      # systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
-      timeout = 0; # Don't show GRUB
+      timeout = 5;
     };
 
     # Plymouth graphical bootscreen
