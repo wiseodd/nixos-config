@@ -13,7 +13,7 @@
       limine.enable = true;
       # systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
-      timeout = 5;
+      timeout = 0;
     };
 
     # Plymouth graphical bootscreen
@@ -38,6 +38,5 @@
     # v4l2loopback: use the module built for this kernel
     extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
     kernelModules = [ "v4l2loopback" ];
-
   };
 }

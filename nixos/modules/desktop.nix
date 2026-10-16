@@ -13,6 +13,9 @@
   };
 
   programs.hyprland.enable = true;
+  environment.systemPackages = [
+    inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.hyprland-preview-share-picker
+  ];
 
   programs.dconf.profiles.user.databases = [
     {
@@ -36,7 +39,7 @@
 
     defaultSession = "hyprland";
     autoLogin = {
-      enable = false;
+      enable = true;
       user = "akristiadi";
     };
   };
@@ -47,14 +50,15 @@
     wlr.enable = true;
 
     extraPortals = with pkgs; [
+      xdg-desktop-portal-hyprland
       xdg-desktop-portal-gtk
     ];
 
+    # Configure portal chain/fallback if needed
+    config.common.default = "*";
+
     config.hyprland = {
-      default = [
-        "hyprland"
-        "gtk"
-      ];
+      default = [ "gtk" ];
       "org.freedesktop.impl.portal.ScreenCast" = [ "hyprland" ];
       "org.freedesktop.impl.portal.Screenshot" = [ "hyprland" ];
     };
