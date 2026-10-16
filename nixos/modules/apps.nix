@@ -33,6 +33,7 @@
     # GTK stuffs
     glib
     dconf
+    gnome-tweaks
     adwaita-icon-theme
     hicolor-icon-theme
     papirus-icon-theme
