@@ -18,7 +18,7 @@
     withUWSM = false;
   };
 
-  # Use nicer, newer screen sharing picker
+  # Use nicer, newer Hyprland screen sharing picker
   environment.systemPackages = [
     inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.hyprland-preview-share-picker
   ];
@@ -35,13 +35,12 @@
     }
   ];
 
-  # Login manager
+  # Display manager
   services.displayManager = {
-    ly.enable = true;
-
-    sessionPackages = [
-      config.programs.hyprland.package
-    ];
+    sddm = {
+      enable = true;
+      wayland.enable = true;
+    };
 
     defaultSession = "hyprland";
     autoLogin = {
