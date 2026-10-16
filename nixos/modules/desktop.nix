@@ -21,12 +21,7 @@
   environment.systemPackages = [
     # Use nicer, newer Hyprland screen sharing picker
     inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.hyprland-preview-share-picker
-
-    # SDDM Theme
-    (pkgs.catppuccin-sddm.override {
-      flavor = "mocha";
-      accent = "mauve";
-    })
+    inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.noctalia-greeter
   ];
 
   programs.dconf.profiles.user.databases = [
@@ -43,15 +38,20 @@
 
   # Display manager
   services.displayManager = {
-    sddm = {
+    noctalia-greeter = {
       enable = true;
-      wayland.enable = true;
-      theme = "catppuccin-mocha-mauve";
-      settings.Theme = {
-        CursorTheme = "Adwaita";
-        CursorSize = 24;
+      package =
+        inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.noctalia-greeter;
+      settings = {
+        keyboard.layout = "us";
+        cursor = {
+          size = 24;
+          name = "Adwaita";
+          path = pkgs.adwaita-icon-theme;
+        };
       };
     };
+
     defaultSession = "hyprland";
     autoLogin = {
       enable = true;

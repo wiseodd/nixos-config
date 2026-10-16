@@ -6,7 +6,11 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     noctalia = {
       url = "github:noctalia-dev/noctalia/cachix";
-
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    noctalia-greeter = {
+      url = "github:noctalia-dev/noctalia-greeter";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.8.0";
   };
@@ -25,20 +29,22 @@
         home = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           modules = [
-            inputs.nix-flatpak.nixosModules.nix-flatpak
             ./configuration.nix
             ./hosts/home.nix
             ./hosts/home-hardware-configuration.nix
+            inputs.nix-flatpak.nixosModules.nix-flatpak
+            inputs.noctalia-greeter.nixosModules.default
           ];
         };
 
         office = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           modules = [
-            inputs.nix-flatpak.nixosModules.nix-flatpak
             ./configuration.nix
             ./hosts/office.nix
             ./hosts/office-hardware-configuration.nix
+            inputs.nix-flatpak.nixosModules.nix-flatpak
+            inputs.noctalia-greeter.nixosModules.default
           ];
         };
       };
