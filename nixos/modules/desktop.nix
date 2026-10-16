@@ -12,7 +12,13 @@
     package = pkgs.swayfx;
   };
 
-  programs.hyprland.enable = true;
+  # Enable hyprland but disable UWSM version
+  programs.hyprland = {
+    enable = true;
+    withUWSM = false;
+  };
+
+  # Use nicer, newer screen sharing picker
   environment.systemPackages = [
     inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.hyprland-preview-share-picker
   ];
