@@ -5,13 +5,6 @@
   ...
 }:
 {
-  # Window manager
-  programs.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true;
-    package = pkgs.swayfx;
-  };
-
   # Enable hyprland but disable UWSM version
   programs.hyprland = {
     enable = true;
@@ -37,30 +30,42 @@
   ];
 
   # Display manager
-  services.displayManager = {
-    noctalia-greeter = {
-      enable = true;
-      package =
-        inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.noctalia-greeter;
-      passwordless-sync-users = [ "akristiadi" ];
-      settings = {
-        user.default = "akristiadi";
-        session.default = "hyprland";
-        appearance = {
-          scheme = "Synced";
-          hide_logo = true;
-          font_family = "Inter Display";
-        };
-        output.scale = 1.6;
-        keyboard.layout = "us";
-        cursor = {
-          size = 24;
-          name = "Adwaita";
-          path = pkgs.adwaita-icon-theme;
+  services =
+    let
+      user = "akristiadi";
+    in
+    {
+      displayManager = {
+        noctalia-greeter = {
+          enable = true;
+          package =
+            inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.noctalia-greeter;
+          passwordless-sync-users = [ user ];
+          settings = {
+            user.default = user;
+            session.default = "hyprland";
+            appearance = {
+              scheme = "Synced";
+              hide_logo = true;
+              font_family = "Inter Display";
+            };
+            output.scale = 1.6;
+            keyboard.layout = "us";
+            cursor = {
+              size = 24;
+              name = "Adwaita";
+              path = pkgs.adwaita-icon-theme;
+            };
+          };
         };
       };
+
+      # Autologin
+      greetd.settings.initial_session = {
+        command = "${pkgs.hyprland}/bin/start-hyprland";
+        user = user;
+      };
     };
-  };
 
   # Screen sharing and screenshot support
   xdg.portal = {

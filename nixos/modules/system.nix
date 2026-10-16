@@ -2,6 +2,7 @@
   inputs,
   config,
   pkgs,
+  lib,
   ...
 }:
 {
@@ -44,20 +45,24 @@
   # Keyring and autounlock using LUKS passphrase
   # NOTE: Change gnome-keyring password using seahorse to match LUKS passphrase
   services.gnome.gnome-keyring.enable = true;
-  security.pam.services.ly-autologin.rules.auth = {
-    systemd-loadkey = {
-      order = 10250;
-      control = "optional";
-      modulePath = "${pkgs.systemd}/lib/security/pam_systemd_loadkey.so";
+  security.polkit.enable = true;
+  security.pam.services = {
+    greetd = {
+      enableGnomeKeyring = true;
+      # Retrieve the LUKS passphrase during greetd autologin
+      # This unlocks gnome keyring using LUKS passphrase
+      rules.session.fde_boot_pw = {
+        order = config.security.pam.services.greetd.rules.session.gnome_keyring.order - 10;
+        enable = true;
+        control = "optional";
+        modulePath = "${pkgs.pam_fde_boot_pw}/lib/security/pam_fde_boot_pw.so";
+        args = [ "inject_for=gkr" ];
+      };
     };
-
-    gnome-keyring = {
-      order = 10260;
-      control = "optional";
-      modulePath = "${pkgs.gnome-keyring}/lib/security/pam_gnome_keyring.so";
-    };
+    login.enableGnomeKeyring = true; # For noctalia locker
   };
   systemd.services.display-manager.serviceConfig.KeyringMode = "inherit";
+  systemd.services.greetd.serviceConfig.KeyringMode = lib.mkForce "inherit";
 
   # Use root password for sudo
   security.sudo.extraConfig = ''
@@ -66,12 +71,6 @@
 
   services.gvfs.enable = true;
   services.udisks2.enable = true;
-
-  security.polkit.enable = true;
-  security.pam.services = {
-    greetd.enableGnomeKeyring = true;
-    swaylock.enableGnomeKeyring = true;
-  };
 
   # OpenSSH server, useful for rsync back and forth with a cluster
   services.openssh = {
