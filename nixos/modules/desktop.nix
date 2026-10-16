@@ -18,9 +18,15 @@
     withUWSM = false;
   };
 
-  # Use nicer, newer Hyprland screen sharing picker
   environment.systemPackages = [
+    # Use nicer, newer Hyprland screen sharing picker
     inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.hyprland-preview-share-picker
+
+    # SDDM Theme
+    (pkgs.catppuccin-sddm.override {
+      flavor = "mocha";
+      accent = "mauve";
+    })
   ];
 
   programs.dconf.profiles.user.databases = [
@@ -40,8 +46,12 @@
     sddm = {
       enable = true;
       wayland.enable = true;
+      theme = "catppuccin-mocha-mauve";
+      settings.Theme = {
+        CursorTheme = "Adwaita";
+        CursorSize = 24;
+      };
     };
-
     defaultSession = "hyprland";
     autoLogin = {
       enable = true;
@@ -66,19 +76,6 @@
       default = [ "gtk" ];
       "org.freedesktop.impl.portal.ScreenCast" = [ "hyprland" ];
       "org.freedesktop.impl.portal.Screenshot" = [ "hyprland" ];
-    };
-
-    config.sway = {
-      default = [ "gtk" ];
-      "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
-      "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
-    };
-
-    wlr.settings.screencast = {
-      chooser_type = "simple";
-      chooser_cmd = "${
-        inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.wlr-utils
-      }/bin/wlr-chooser --both --grid 4x3";
     };
   };
 }

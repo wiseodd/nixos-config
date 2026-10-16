@@ -59,6 +59,11 @@
   };
   systemd.services.display-manager.serviceConfig.KeyringMode = "inherit";
 
+  # Use root password for sudo
+  security.sudo.extraConfig = ''
+    Defaults rootpw
+  '';
+
   services.gvfs.enable = true;
   services.udisks2.enable = true;
 
