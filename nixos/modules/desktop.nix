@@ -52,7 +52,7 @@
             output.scale = 1.6;
             keyboard.layout = "us";
             cursor = {
-              size = 24;
+              size = 38;
               name = "Adwaita";
               path = pkgs.adwaita-icon-theme;
             };
