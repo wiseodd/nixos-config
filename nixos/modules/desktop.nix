@@ -21,7 +21,7 @@
   environment.systemPackages = [
     # Use nicer, newer Hyprland screen sharing picker
     inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.hyprland-preview-share-picker
-    inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.noctalia-greeter
+    inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.noctalia-greeter
   ];
 
   programs.dconf.profiles.user.databases = [
@@ -42,7 +42,16 @@
       enable = true;
       package =
         inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.noctalia-greeter;
+      passwordless-sync-users = [ "akristiadi" ];
       settings = {
+        user.default = "akristiadi";
+        session.default = "hyprland";
+        appearance = {
+          scheme = "Synced";
+          hide_logo = true;
+          font_family = "Inter Display";
+        };
+        output.scale = 1.6;
         keyboard.layout = "us";
         cursor = {
           size = 24;
@@ -50,12 +59,6 @@
           path = pkgs.adwaita-icon-theme;
         };
       };
-    };
-
-    defaultSession = "hyprland";
-    autoLogin = {
-      enable = true;
-      user = "akristiadi";
     };
   };
 
