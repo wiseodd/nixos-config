@@ -25,6 +25,13 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # Automatic cleanup of old generations
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 14d";
+  };
+
   # DO NOT CHANGE THIS
   system.stateVersion = "26.05";
 }
