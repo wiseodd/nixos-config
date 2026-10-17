@@ -70,10 +70,10 @@
   # Screen sharing and screenshot support
   xdg.portal = {
     enable = true;
-    wlr.enable = true;
 
     extraPortals = with pkgs; [
       xdg-desktop-portal-hyprland
+      xdg-desktop-portal-gnome
       xdg-desktop-portal-gtk
     ];
 
@@ -81,7 +81,12 @@
     config.common.default = "*";
 
     config.hyprland = {
-      default = [ "gtk" ];
+      default = [
+        "hyprland"
+        "gnome"
+        "gtk"
+      ];
+      "org.freedesktop.impl.portal.FileChooser" = [ "gnome" ];
       "org.freedesktop.impl.portal.ScreenCast" = [ "hyprland" ];
       "org.freedesktop.impl.portal.Screenshot" = [ "hyprland" ];
     };
