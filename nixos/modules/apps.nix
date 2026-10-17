@@ -106,6 +106,8 @@
     dnsmasq
 
     # Utils
+    alsa-utils
+    pavucontrol
     ddcutil
     flatpak
     udiskie
@@ -145,6 +147,7 @@
       "com.slack.Slack"
       "org.zotero.Zotero"
       "com.vscodium.codium"
+      "com.budgetwithbuckets.Buckets"
     ];
 
     overrides.settings = {
