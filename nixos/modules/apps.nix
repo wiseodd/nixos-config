@@ -116,7 +116,6 @@
     ddcutil
     flatpak
     udiskie
-    networkmanagerapplet
     seahorse
   ];
 
