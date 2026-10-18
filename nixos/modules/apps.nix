@@ -24,11 +24,14 @@
     grim
     slurp
     mako
-    wezterm
     starship
     zathura
     inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
     inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.wlr-utils
+
+    # Terminal
+    alacritty
+    wezterm
 
     # GTK stuffs
     glib
@@ -39,6 +42,7 @@
     adw-gtk3
 
     # Browsers
+    brave
     firefox
     firefoxpwa
 
