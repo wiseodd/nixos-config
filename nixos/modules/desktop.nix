@@ -5,18 +5,11 @@
   ...
 }:
 {
-  # Enable hyprland but disable UWSM version
-  programs.hyprland = {
-    enable = true;
-    withUWSM = false;
-  };
-
-  environment.systemPackages = [
-    # Use nicer, newer Hyprland screen sharing picker
-    inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.hyprland-preview-share-picker
-    inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.noctalia-greeter
+  imports = [
+    ./window-managers/niri.nix
   ];
 
+  # GTK interface
   programs.dconf.profiles.user.databases = [
     {
       settings."org/gnome/desktop/interface" = {
@@ -29,7 +22,11 @@
     }
   ];
 
-  # Display manager
+  # Display manager / login screen
+  environment.systemPackages = [
+    inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.noctalia-greeter
+  ];
+
   services =
     let
       user = "akristiadi";
@@ -59,36 +56,5 @@
           };
         };
       };
-
-      # Autologin
-      greetd.settings.initial_session = {
-        command = "${pkgs.hyprland}/bin/start-hyprland";
-        user = user;
-      };
     };
-
-  # Screen sharing and screenshot support
-  xdg.portal = {
-    enable = true;
-
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-hyprland
-      xdg-desktop-portal-gnome
-      xdg-desktop-portal-gtk
-    ];
-
-    # Configure portal chain/fallback if needed
-    config.common.default = "*";
-
-    config.hyprland = {
-      default = [
-        "hyprland"
-        "gnome"
-        "gtk"
-      ];
-      "org.freedesktop.impl.portal.FileChooser" = [ "gnome" ];
-      "org.freedesktop.impl.portal.ScreenCast" = [ "hyprland" ];
-      "org.freedesktop.impl.portal.Screenshot" = [ "hyprland" ];
-    };
-  };
 }
