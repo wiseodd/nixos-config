@@ -155,6 +155,8 @@
     ];
 
     overrides.settings = {
+      global.Environment.TZ = "America/Toronto";
+
       "org.zotero.Zotero"."Session Bus Policy"."org.freedesktop.secrets" = "talk";
 
       "us.zoom.Zoom".Context.filesystems = [
