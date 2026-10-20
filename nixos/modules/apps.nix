@@ -181,6 +181,17 @@
         XDG_SESSION_TYPE = "wayland";
         ELECTRON_OZONE_PLATFORM_HINT = "wayland";
       };
+
+      "com.budgetwithbuckets.Buckets" = {
+        Context.sockets = [
+          "wayland"
+          "x11"
+        ];
+
+        Environment = {
+          ELECTRON_OZONE_PLATFORM_HINT = "wayland";
+        };
+      };
     };
   };
 
