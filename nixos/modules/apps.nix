@@ -183,4 +183,14 @@
       };
     };
   };
+
+  # Default applications
+  xdg.mime.enable = true;
+  xdg.mime.defaultApplications = {
+    "application/pdf" = "firefox.desktop";
+    "text/html" = "brave-browser.desktop";
+    "x-scheme-handler/http" = "brave-browser.desktop";
+    "x-scheme-handler/https" = "brave-browser.desktop";
+    "inode/directory" = "org.gnome.Nautilus.desktop";
+  };
 }
