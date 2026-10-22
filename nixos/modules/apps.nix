@@ -31,7 +31,7 @@
 
     # Terminal
     alacritty
-    wezterm
+    foot
 
     # GTK stuffs
     glib
