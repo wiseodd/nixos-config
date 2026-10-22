@@ -181,6 +181,27 @@
         XDG_SESSION_TYPE = "wayland";
         ELECTRON_OZONE_PLATFORM_HINT = "wayland";
       };
+
+      "com.budgetwithbuckets.Buckets" = {
+        Context.sockets = [
+          "wayland"
+          "x11"
+        ];
+
+        Environment = {
+          ELECTRON_OZONE_PLATFORM_HINT = "wayland";
+        };
+      };
     };
+  };
+
+  # Default applications
+  xdg.mime.enable = true;
+  xdg.mime.defaultApplications = {
+    "application/pdf" = "firefox.desktop";
+    "text/html" = "brave-browser.desktop";
+    "x-scheme-handler/http" = "brave-browser.desktop";
+    "x-scheme-handler/https" = "brave-browser.desktop";
+    "inode/directory" = "org.gnome.Nautilus.desktop";
   };
 }
