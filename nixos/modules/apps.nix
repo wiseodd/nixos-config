@@ -46,6 +46,10 @@
     firefox
     firefoxpwa
 
+    # Coding
+    inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.claude-code
+    inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.herdr
+
     # CLI tools
     zoxide
     ripgrep
