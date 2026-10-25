@@ -58,6 +58,7 @@
     fzf
     fd
     skim # sk in Arch
+    btop
 
     # Development and language servers
     tree-sitter

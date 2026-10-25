@@ -10,6 +10,9 @@
   # Power management
   services.power-profiles-daemon.enable = true;
   services.upower.enable = true;
+
+  # Firmware updates via LVFS (fwupdmgr refresh && fwupdmgr update)
+  services.fwupd.enable = true;
   hardware.i2c.enable = true; # For ddcutil
 
   # For connecting iPhone/iPad with USB

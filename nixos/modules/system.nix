@@ -72,15 +72,6 @@
   services.gvfs.enable = true;
   services.udisks2.enable = true;
 
-  # OpenSSH server, useful for rsync back and forth with a cluster
-  services.openssh = {
-    enable = true;
-    settings = {
-      PasswordAuthentication = false;
-      KbdInteractiveAuthentication = false;
-    };
-  };
-
   # Configure screensharing
   security.rtkit.enable = true;
 
