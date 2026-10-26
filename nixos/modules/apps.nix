@@ -49,7 +49,6 @@
     # Coding
     inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.claude-code
     inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.herdr
-    gh
 
     # CLI tools
     zoxide
@@ -59,6 +58,15 @@
     fd
     skim # sk in Arch
     btop
+    ast-grep
+    yq-go
+    gh
+    bat
+    delta
+    tokei
+    just
+    hyperfine
+    jq
 
     # Development and language servers
     tree-sitter
