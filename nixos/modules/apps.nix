@@ -28,6 +28,7 @@
     zathura
     inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
     inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.wlr-utils
+    vicinae
 
     # Terminal
     alacritty
