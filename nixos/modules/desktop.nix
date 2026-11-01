@@ -6,7 +6,7 @@
 }:
 {
   imports = [
-    ./window-managers/umbriel.nix
+    ./window-managers/hyprland.nix
   ];
 
   # GTK interface
