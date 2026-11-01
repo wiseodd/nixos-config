@@ -110,6 +110,7 @@
     proton-vpn # Current official Proton VPN client
     megasync
     inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.euro-office-desktopeditors
+    vscodium
 
     # Webcam
     v4l-utils
@@ -166,7 +167,6 @@
       "com.github.IsmaelMartinez.teams_for_linux"
       "com.slack.Slack"
       "org.zotero.Zotero"
-      "com.vscodium.codium"
       "com.budgetwithbuckets.Buckets"
     ];
 
@@ -182,11 +182,6 @@
       "com.obsproject.Studio".Context.filesystems = [
         "/run/usbmuxd"
       ];
-
-      "com.vscodium.codium".Environment = {
-        XDG_SESSION_TYPE = "wayland";
-        ELECTRON_OZONE_PLATFORM_HINT = "wayland";
-      };
 
       "com.github.IsmaelMartinez.teams_for_linux".Environment = {
         XDG_SESSION_TYPE = "wayland";
