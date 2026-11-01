@@ -69,6 +69,9 @@
     Defaults rootpw
   '';
 
+  # SSL certificate location, otherwise things like Python's requests will fail
+  environment.etc."ssl/cert.pem".source = "/etc/ssl/certs/ca-bundle.crt";
+
   services.gvfs.enable = true;
   services.udisks2.enable = true;
 
