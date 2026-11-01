@@ -94,6 +94,7 @@
     lua
     luarocks
     nodejs
+    pnpm
     typescript
     pyenv
     tk
