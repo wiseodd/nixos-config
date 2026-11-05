@@ -6,9 +6,16 @@
   ...
 }:
 {
-  time.timeZone = "America/Toronto";
+  # Rustify things
+  security.sudo-rs.enable = true;
+  environment.systemPackages = with pkgs; [
+    (lib.hiPrio pkgs.uutils-coreutils-noprefix)
+    (lib.hiPrio pkgs.uutils-diffutils)
+    (lib.hiPrio pkgs.uutils-findutils)
+  ];
 
-  # Select internationalisation properties.
+  # Region things
+  time.timeZone = "America/Toronto";
   i18n.defaultLocale = "en_CA.UTF-8";
 
   # Configure keymap in X11
