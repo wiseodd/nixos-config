@@ -7,7 +7,14 @@
 }:
 {
   # Rustify things
-  security.sudo-rs.enable = true;
+  security.sudo.enable = false;
+  security.sudo-rs = {
+    enable = true;
+    extraConfig = ''
+      Defaults rootpw
+    '';
+  };
+
   environment.systemPackages = with pkgs; [
     (lib.hiPrio pkgs.uutils-coreutils-noprefix)
     (lib.hiPrio pkgs.uutils-diffutils)
