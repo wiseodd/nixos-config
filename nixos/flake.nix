@@ -5,17 +5,9 @@
     nixpkgs.url = "github:NixOs/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.8.0";
-    noctalia = {
-      url = "github:noctalia-dev/noctalia/cachix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    noctalia-greeter = {
-      url = "github:noctalia-dev/noctalia-greeter";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    umbriel = {
-      url = "github:noctalia-dev/umbriel/cachix";
-    };
+    noctalia.url = "github:noctalia-dev/noctalia/cachix";
+    noctalia-greeter.url = "github:noctalia-dev/noctalia-greeter";
+    umbriel.url = "github:noctalia-dev/umbriel/cachix";
     llm-agents.url = "github:numtide/llm-agents.nix";
   };
 

@@ -24,11 +24,13 @@
     grim
     slurp
     mako
-    starship
     zathura
     inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
     inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.wlr-utils
     difftastic
+
+    # Shell
+    starship
 
     # Terminal
     alacritty
@@ -43,7 +45,7 @@
     adw-gtk3
 
     # Browsers
-    brave
+    # brave
     firefox
     firefoxpwa
 
@@ -135,6 +137,8 @@
     udiskie
     seahorse
   ];
+
+  programs.fish.enable = true;
 
   programs.firefox = {
     enable = true;

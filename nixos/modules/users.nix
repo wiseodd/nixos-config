@@ -13,6 +13,7 @@
       "wheel"
       "libvirtd"
     ];
+    shell = pkgs.fish;
     packages = with pkgs; [ ];
   };
 }
