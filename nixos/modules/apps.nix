@@ -73,6 +73,7 @@
     just
     hyperfine
     jq
+    gh-dash
 
     # Development and language servers
     tree-sitter
