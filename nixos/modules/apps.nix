@@ -114,6 +114,7 @@
     megasync
     inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.euro-office-desktopeditors
     vscodium
+    mailspring
 
     # Webcam
     v4l-utils
@@ -173,6 +174,7 @@
       "com.slack.Slack"
       "org.zotero.Zotero"
       "com.budgetwithbuckets.Buckets"
+      "eu.betterbird.Betterbird"
     ];
 
     overrides.settings = {
