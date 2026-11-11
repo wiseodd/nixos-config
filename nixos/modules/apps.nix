@@ -53,6 +53,8 @@
     inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.claude-code
     inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.t3code
     inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.t3code-desktop
+    inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.herdr
+    inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.tuicr
 
     # CLI tools
     zoxide
