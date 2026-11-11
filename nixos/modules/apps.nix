@@ -114,7 +114,6 @@
     megasync
     inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.euro-office-desktopeditors
     vscodium
-    mailspring
 
     # Webcam
     v4l-utils
