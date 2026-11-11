@@ -173,7 +173,6 @@
       "com.slack.Slack"
       "org.zotero.Zotero"
       "com.budgetwithbuckets.Buckets"
-      "eu.betterbird.Betterbird"
     ];
 
     overrides.settings = {
