@@ -45,7 +45,7 @@
     adw-gtk3
 
     # Browsers
-    # brave
+    inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.brave-origin
     firefox
     firefoxpwa
 
@@ -155,6 +155,26 @@
     polkitPolicyOwners = [ "akristiadi" ];
   };
 
+  # Let 1Password talk to Brave Origin: install the native-messaging manifest
+  # in its profile dir (1Password doesn't know about it)
+  environment.etc."1password/brave-origin-native-host.json".text = builtins.toJSON {
+    name = "com.1password.1password";
+    description = "1Password BrowserSupport";
+    path = "/run/wrappers/bin/1Password-BrowserSupport";
+    type = "stdio";
+    allowed_origins = [
+      "chrome-extension://hjlinigoblmkhjejkmbegnoaljkphmgo/"
+      "chrome-extension://bkpbhnjcbehoklfkljkkbbmipaphipgl/"
+      "chrome-extension://gejiddohjgogedgjnonbofjigllpkmbf/"
+      "chrome-extension://khgocmkkpikpnmmkgmdnfckapcdkgfaf/"
+      "chrome-extension://aeblfdkhhhdcdjpifhhbdiojplfjncoa/"
+      "chrome-extension://dppgmdbiimibapkepcbdbmkaabgiofem/"
+    ];
+  };
+  systemd.user.tmpfiles.rules = [
+    "L+ %h/.config/BraveSoftware/Brave-Origin/NativeMessagingHosts/com.1password.1password.json - - - - /etc/1password/brave-origin-native-host.json"
+  ];
+
   # Virtualization
   virtualisation.libvirtd.enable = true;
   virtualisation.libvirtd.qemu.package = pkgs.qemu_full;
@@ -218,9 +238,9 @@
   xdg.mime.enable = true;
   xdg.mime.defaultApplications = {
     "application/pdf" = "firefox.desktop";
-    "text/html" = "brave-browser.desktop";
-    "x-scheme-handler/http" = "brave-browser.desktop";
-    "x-scheme-handler/https" = "brave-browser.desktop";
+    "text/html" = "brave-origin.desktop";
+    "x-scheme-handler/http" = "brave-origin.desktop";
+    "x-scheme-handler/https" = "brave-origin.desktop";
     "inode/directory" = "org.gnome.Nautilus.desktop";
   };
 }
