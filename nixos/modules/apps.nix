@@ -101,8 +101,8 @@
     luarocks
     nodejs
     pnpm
+    bun
     typescript
-    pyenv
     tk
     uv
 

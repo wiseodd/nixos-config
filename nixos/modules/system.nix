@@ -41,6 +41,11 @@
   environment.localBinInPath = true;
   programs.nix-ld.enable = true;
 
+  # Global Python: a uv-managed venv at ~/.venv (pip-installable, PyPI wheels
+  # work via nix-ld). Create it once with:
+  #   uv venv --seed --managed-python --python 3.14 ~/.venv
+  environment.sessionVariables.PATH = [ "$HOME/.venv/bin" ];
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   programs.mtr.enable = true;
