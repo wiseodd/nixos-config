@@ -105,6 +105,8 @@
     typescript
     tk
     uv
+    go
+    lisette
 
     # Documents and typesetting
     typst
