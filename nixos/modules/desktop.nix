@@ -9,6 +9,9 @@
     ./window-managers/umbriel.nix
   ];
 
+  # Luciole file manager
+  programs.luciole.enable = true;
+
   # GTK interface
   programs.dconf.profiles.user.databases = [
     {

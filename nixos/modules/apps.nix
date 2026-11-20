@@ -15,12 +15,12 @@
     zlib
     unzip
     stow
-    nautilus
     file-roller
     sushi
     loupe
     evince
     wl-clipboard
+    vifm
     grim
     slurp
     mako
@@ -243,6 +243,6 @@
     "text/html" = "brave-origin.desktop";
     "x-scheme-handler/http" = "brave-origin.desktop";
     "x-scheme-handler/https" = "brave-origin.desktop";
-    "inode/directory" = "org.gnome.Nautilus.desktop";
+    "inode/directory" = "dev.noctalia.luciole.desktop";
   };
 }

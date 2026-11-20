@@ -8,6 +8,7 @@
     noctalia.url = "github:noctalia-dev/noctalia/cachix";
     noctalia-greeter.url = "github:noctalia-dev/noctalia-greeter";
     umbriel.url = "github:noctalia-dev/umbriel/cachix";
+    luciole.url = "github:noctalia-dev/luciole";
     llm-agents.url = "github:numtide/llm-agents.nix";
   };
 
@@ -36,6 +37,7 @@
             ./hosts/home-hardware-configuration.nix
             inputs.nix-flatpak.nixosModules.nix-flatpak
             inputs.noctalia-greeter.nixosModules.default
+            inputs.luciole.nixosModules.default
           ];
         };
 
@@ -47,6 +49,7 @@
             ./hosts/office-hardware-configuration.nix
             inputs.nix-flatpak.nixosModules.nix-flatpak
             inputs.noctalia-greeter.nixosModules.default
+            inputs.luciole.nixosModules.default
           ];
         };
       };

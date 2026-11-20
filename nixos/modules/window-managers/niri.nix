@@ -28,7 +28,7 @@
 
       "org.freedesktop.impl.portal.ScreenCast" = [ "gnome" ];
       "org.freedesktop.impl.portal.Screenshot" = [ "gnome" ];
-      "org.freedesktop.impl.portal.FileChooser" = [ "gnome" ];
+      "org.freedesktop.impl.portal.FileChooser" = [ "luciole" ];
     };
   };
 
