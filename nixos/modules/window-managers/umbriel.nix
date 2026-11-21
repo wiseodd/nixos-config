@@ -26,7 +26,7 @@
       ];
       "org.freedesktop.impl.portal.ScreenCast" = [ "umbriel" ];
       "org.freedesktop.impl.portal.Screenshot" = [ "umbriel" ];
-      "org.freedesktop.impl.portal.FileChooser" = [ "luciole" ];
+      "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
     };
   };
 
