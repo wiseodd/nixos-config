@@ -16,6 +16,7 @@
     unzip
     stow
     file-roller
+    nautilus
     sushi
     loupe
     evince
