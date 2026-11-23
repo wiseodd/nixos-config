@@ -61,27 +61,13 @@
   services.printing.enable = true;
   programs.system-config-printer.enable = true;
 
-  # Keyring and autounlock using LUKS passphrase
-  # NOTE: Change gnome-keyring password using seahorse to match LUKS passphrase
+  # Keyring, unlocked by the login password via PAM (greeter and lock screen)
   services.gnome.gnome-keyring.enable = true;
   security.polkit.enable = true;
   security.pam.services = {
-    greetd = {
-      enableGnomeKeyring = true;
-      # Retrieve the LUKS passphrase during greetd autologin
-      # This unlocks gnome keyring using LUKS passphrase
-      rules.session.fde_boot_pw = {
-        order = config.security.pam.services.greetd.rules.session.gnome_keyring.order - 10;
-        enable = true;
-        control = "optional";
-        modulePath = "${pkgs.pam_fde_boot_pw}/lib/security/pam_fde_boot_pw.so";
-        args = [ "inject_for=gkr" ];
-      };
-    };
+    greetd.enableGnomeKeyring = true;
     login.enableGnomeKeyring = true; # For noctalia locker
   };
-  systemd.services.display-manager.serviceConfig.KeyringMode = "inherit";
-  systemd.services.greetd.serviceConfig.KeyringMode = lib.mkForce "inherit";
 
   # Use root password for sudo
   security.sudo.extraConfig = ''

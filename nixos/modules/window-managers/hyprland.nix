@@ -38,10 +38,4 @@
       "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
     };
   };
-
-  # Autologin
-  services.greetd.settings.initial_session = {
-    command = "${pkgs.hyprland}/bin/start-hyprland";
-    user = "akristiadi";
-  };
 }

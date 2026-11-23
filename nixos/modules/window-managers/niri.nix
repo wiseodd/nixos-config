@@ -31,10 +31,4 @@
       "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
     };
   };
-
-  # Autologin
-  services.greetd.settings.initial_session = {
-    command = "${config.programs.niri.package}/bin/niri-session";
-    user = "akristiadi";
-  };
 }

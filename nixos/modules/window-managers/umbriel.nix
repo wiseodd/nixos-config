@@ -29,10 +29,4 @@
       "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
     };
   };
-
-  # Autologin
-  services.greetd.settings.initial_session = {
-    command = "${config.programs.umbriel.package}/bin/start-umbriel";
-    user = "akristiadi";
-  };
 }
