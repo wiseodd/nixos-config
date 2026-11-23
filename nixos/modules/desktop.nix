@@ -9,11 +9,6 @@
     ./window-managers/umbriel.nix
   ];
 
-  # Luciole file manager
-  programs.luciole.enable = true;
-  # Expose share/luciole (Noctalia color template) at /run/current-system/sw
-  environment.pathsToLink = [ "/share/luciole" ];
-
   # GTK interface
   programs.dconf.profiles.user.databases = [
     {

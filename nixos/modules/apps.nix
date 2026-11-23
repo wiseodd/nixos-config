@@ -21,6 +21,7 @@
     evince
     wl-clipboard
     vifm
+    nautilus
     grim
     slurp
     mako
