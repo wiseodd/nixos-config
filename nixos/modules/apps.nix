@@ -196,8 +196,8 @@
       "us.zoom.Zoom"
       "com.obsproject.Studio"
       "com.obsproject.Studio.Plugin.DroidCam"
-      "com.github.IsmaelMartinez.teams_for_linux"
-      "com.slack.Slack"
+      # "com.github.IsmaelMartinez.teams_for_linux"
+      # "com.slack.Slack"
       "org.zotero.Zotero"
       "com.budgetwithbuckets.Buckets"
     ];
